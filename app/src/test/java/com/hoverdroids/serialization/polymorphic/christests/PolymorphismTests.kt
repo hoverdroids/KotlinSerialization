@@ -7,7 +7,7 @@ import kotlinx.serialization.modules.polymorphic
 import kotlinx.serialization.modules.subclass
 import org.junit.Test
 
-class Test1 {
+class PolymorphismTests {
 
     /*val itemsGroupModelSerializersModule = SerializersModule {
         polymorphic(ItemsGroupModel::class) {
@@ -134,6 +134,24 @@ class Test1 {
         } catch (e: Exception) {
 
         }
+
+        // Now with lists ...
+        val item2: IItemsGroupModel = ItemsGroupModel("Bruh2",
+            mutableListOf(
+                ItemsGroupModel("Bruh22"),
+                ItemsGroupModel2("BroBro2",
+                    mutableListOf(
+                        ItemsGroupModel3("Sista2")
+                    )
+                ),
+            )
+        )
+
+        val items = listOf(item, item2)
+        val serializedList = json.encodeToString(items)
+        println(serializedList)
+        val deserializedList = json.decodeFromString<List<IItemsGroupModel>>(serializedList)
+        println(deserializedList)
     }
 
     interface IItemsGroupModel {
